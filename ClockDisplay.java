@@ -11,6 +11,7 @@
  * 
  * @author Thomas Leighty	
  * @version 2021.02.08
+ * //Comment for Sanity THIS IS THE TWELVE HOUR CLOCK! 
  */
 public class ClockDisplay
 {
