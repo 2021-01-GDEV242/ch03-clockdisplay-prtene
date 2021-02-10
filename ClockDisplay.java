@@ -11,13 +11,14 @@
  * 
  * @author Thomas Leighty	
  * @version 2021.02.08
- * //Comment for Sanity THIS IS THE TWELVE HOUR CLOCK! 
+ * //Comment for Sanity THIS IS THE TWELVE HOUR INTERNAL CLOCK! 
  */
 public class ClockDisplay
 {
     private NumberDisplay hours;
     private NumberDisplay minutes;
     private String displayString;    // simulates the actual display
+    private String afterMidnight; //Is it after midnight (AM)
     
     /**
      * Constructor for ClockDisplay objects. This constructor 
@@ -25,8 +26,9 @@ public class ClockDisplay
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(13);
         minutes = new NumberDisplay(60);
+        afterMidnight =null;
         updateDisplay();
     }
 
@@ -35,10 +37,11 @@ public class ClockDisplay
      * creates a new clock set at the time specified by the 
      * parameters.
      */
-    public ClockDisplay(int hour, int minute)
+    public ClockDisplay(int hour, int minute, String isAM)
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(13);
         minutes = new NumberDisplay(60);
+        afterMidnight = isAM;
         setTime(hour, minute);
     }
 
@@ -51,7 +54,13 @@ public class ClockDisplay
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
+           
         }
+        if(hours.getValue() == 13) 
+       {
+        hours.setValue(1);
+
+       }
         updateDisplay();
     }
 
@@ -62,7 +71,16 @@ public class ClockDisplay
     public void setTime(int hour, int minute)
     {
         hours.setValue(hour);
+        if (hours.getValue()==13)
+        {
+            hours.setValue(1);
+        }
+        if (hours.getValue()==0)
+        {
+            hours.setValue(1);
+        }
         minutes.setValue(minute);
+
         updateDisplay();
     }
 
@@ -78,8 +96,16 @@ public class ClockDisplay
      * Update the internal string that represents the display.
      */
     private void updateDisplay()
-    {
+    { 
+        if (afterMidnight=="Yes")
+        {
         displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+                        minutes.getDisplayValue()+" A.M"; 
+        }
+        else
+        {
+          displayString = hours.getDisplayValue() + ":" + 
+                        minutes.getDisplayValue()+" P.M";   
+        }
     }
 }
