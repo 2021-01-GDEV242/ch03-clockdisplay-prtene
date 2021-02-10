@@ -9,7 +9,7 @@
  * and reacts by incrementing the display. This is done in the usual clock
  * fashion: the hour increments when the minutes roll over to zero.
  * 
- * @author Thomas Leighty	
+ * @author Thomas Leighty   
  * @version 2021.02.08
  * //Comment for Sanity THIS IS THE TWELVE HOUR INTERNAL CLOCK! 
  */
@@ -20,6 +20,8 @@ public class ClockDisplay
     private String displayString;    // simulates the actual display
     private String afterMidnight; //Is it after midnight (AM)
     
+
+    
     /**
      * Constructor for ClockDisplay objects. This constructor 
      * creates a new clock set at 00:00.
@@ -27,6 +29,7 @@ public class ClockDisplay
     public ClockDisplay()
     {
         hours = new NumberDisplay(14);
+
         minutes = new NumberDisplay(60);
         afterMidnight ="Yes";
         updateDisplay();
@@ -41,7 +44,9 @@ public class ClockDisplay
      */
     public ClockDisplay(int hour, int minute, String isAM)
     {
+
         hours = new NumberDisplay(14);
+
         minutes = new NumberDisplay(60);
         afterMidnight = isAM;
         setTime(hour, minute);
