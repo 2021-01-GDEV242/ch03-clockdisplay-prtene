@@ -26,12 +26,14 @@ public class ClockDisplay
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(13);
+        hours = new NumberDisplay(14);
         minutes = new NumberDisplay(60);
-        afterMidnight =null;
+        afterMidnight ="Yes";
         updateDisplay();
+        
     }
-
+  
+    
     /**
      * Constructor for ClockDisplay objects. This constructor
      * creates a new clock set at the time specified by the 
@@ -39,7 +41,7 @@ public class ClockDisplay
      */
     public ClockDisplay(int hour, int minute, String isAM)
     {
-        hours = new NumberDisplay(13);
+        hours = new NumberDisplay(14);
         minutes = new NumberDisplay(60);
         afterMidnight = isAM;
         setTime(hour, minute);
@@ -56,14 +58,17 @@ public class ClockDisplay
             hours.increment();
            
         }
-        if(hours.getValue() == 13) 
+        if(hours.getValue()==13) 
        {
         hours.setValue(1);
-
+        if (afterMidnight=="Yes");
+        {
+           afterMidnight="No";
+        }
        }
         updateDisplay();
     }
-
+    
     /**
      * Set the time of the display to the specified hour and
      * minute.
@@ -74,11 +79,12 @@ public class ClockDisplay
         if (hours.getValue()==13)
         {
             hours.setValue(1);
-        }
         if (hours.getValue()==0)
         {
-            hours.setValue(1);
+            hours.setValue(12);
         }
+        }
+    
         minutes.setValue(minute);
 
         updateDisplay();
@@ -89,7 +95,13 @@ public class ClockDisplay
      */
     public String getTime()
     {
-        return displayString;
+       
+       if (hours.getDisplayValue()=="00")
+       {
+        hours.setValue(12);
+        updateDisplay();
+       }
+       return displayString;
     }
     
     /**
@@ -97,6 +109,11 @@ public class ClockDisplay
      */
     private void updateDisplay()
     { 
+        
+        if (hours.getValue()==0)
+        {
+            hours.setValue(12);
+        }
         if (afterMidnight=="Yes")
         {
         displayString = hours.getDisplayValue() + ":" + 
@@ -107,5 +124,6 @@ public class ClockDisplay
           displayString = hours.getDisplayValue() + ":" + 
                         minutes.getDisplayValue()+" P.M";   
         }
+        
     }
 }
