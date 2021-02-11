@@ -11,7 +11,7 @@
  * 
  * @author Thomas Leighty
  * @version 2021.02.09
- * //Comment for Sanity. THIS IS THE TWENTY FOUR HOUR CLOCK
+ * //Comment for Sanity. THIS IS THE TWENTY FOUR HOUR CLOCK (Displays 12 Hour to user)
  */
 public class ClockDisplay
 {
