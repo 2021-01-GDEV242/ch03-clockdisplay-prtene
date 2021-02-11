@@ -41,7 +41,38 @@ public class ClockDisplay
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
     }
-
+public String get24HourInternalDisplay()
+    {
+         
+        
+        
+        if (hours.getValue()>12 && hours.getValue()<24)
+        {
+           int Time;
+           Time = hours.getValue();
+           Time = Time%12;
+           hours.setValue(Time);
+            
+           return displayString = hours.getDisplayValue() + ":" + 
+                        minutes.getDisplayValue()+" P.M";
+            
+        }
+        if (hours.getValue()==0)
+        {
+        hours.setValue(12);
+        return displayString = hours.getDisplayValue() + ":" + 
+                        minutes.getDisplayValue()+" A.M";
+        }
+        else 
+        {
+        return displayString = hours.getDisplayValue() + ":" + 
+                        minutes.getDisplayValue()+" A.M";
+        }
+        
+        
+    }
+    
+    
     /**
      * This method should get called once every minute - it makes
      * the clock display go one minute forward.
