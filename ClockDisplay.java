@@ -9,14 +9,18 @@
  * and reacts by incrementing the display. This is done in the usual clock
  * fashion: the hour increments when the minutes roll over to zero.
  * 
- * @author Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author Thomas Leighty   
+ * @version 2021.02.08
+ * //Comment for Sanity THIS IS THE TWELVE HOUR INTERNAL CLOCK! 
  */
 public class ClockDisplay
 {
     private NumberDisplay hours;
     private NumberDisplay minutes;
     private String displayString;    // simulates the actual display
+    private String afterMidnight; //Is it after midnight (AM)
+    
+
     
     /**
      * Constructor for ClockDisplay objects. This constructor 
@@ -24,20 +28,27 @@ public class ClockDisplay
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(24);
-        minutes = new NumberDisplay(60);
-        updateDisplay();
-    }
+        hours = new NumberDisplay(14);
 
+        minutes = new NumberDisplay(60);
+        afterMidnight ="Yes";
+        updateDisplay();
+        
+    }
+  
+    
     /**
      * Constructor for ClockDisplay objects. This constructor
      * creates a new clock set at the time specified by the 
      * parameters.
      */
-    public ClockDisplay(int hour, int minute)
+    public ClockDisplay(int hour, int minute, String isAM)
     {
-        hours = new NumberDisplay(24);
+
+        hours = new NumberDisplay(14);
+
         minutes = new NumberDisplay(60);
+        afterMidnight = isAM;
         setTime(hour, minute);
     }
 
@@ -50,10 +61,19 @@ public class ClockDisplay
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
+           
         }
+        if(hours.getValue()==13) 
+       {
+        hours.setValue(1);
+        if (afterMidnight=="Yes");
+        {
+           afterMidnight="No";
+        }
+       }
         updateDisplay();
     }
-
+    
     /**
      * Set the time of the display to the specified hour and
      * minute.
@@ -61,7 +81,17 @@ public class ClockDisplay
     public void setTime(int hour, int minute)
     {
         hours.setValue(hour);
+        if (hours.getValue()==13)
+        {
+            hours.setValue(1);
+        if (hours.getValue()==0)
+        {
+            hours.setValue(12);
+        }
+        }
+    
         minutes.setValue(minute);
+
         updateDisplay();
     }
 
@@ -70,15 +100,35 @@ public class ClockDisplay
      */
     public String getTime()
     {
-        return displayString;
+       
+       if (hours.getDisplayValue()=="00")
+       {
+        hours.setValue(12);
+        updateDisplay();
+       }
+       return displayString;
     }
     
     /**
      * Update the internal string that represents the display.
      */
     private void updateDisplay()
-    {
+    { 
+        
+        if (hours.getValue()==0)
+        {
+            hours.setValue(12);
+        }
+        if (afterMidnight=="Yes")
+        {
         displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+                        minutes.getDisplayValue()+" A.M"; 
+        }
+        else
+        {
+          displayString = hours.getDisplayValue() + ":" + 
+                        minutes.getDisplayValue()+" P.M";   
+        }
+        
     }
 }
