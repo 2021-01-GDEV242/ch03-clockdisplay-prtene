@@ -9,8 +9,9 @@
  * and reacts by incrementing the display. This is done in the usual clock
  * fashion: the hour increments when the minutes roll over to zero.
  * 
- * @author Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author Thomas Leighty
+ * @version 2021.02.09
+ * //Comment for Sanity. THIS IS THE TWENTY FOUR HOUR CLOCK (Displays 12 Hour to user)
  */
 public class ClockDisplay
 {
@@ -40,7 +41,38 @@ public class ClockDisplay
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
     }
-
+public String get24HourInternalDisplay()
+    {
+         
+        
+        
+        if (hours.getValue()>12 && hours.getValue()<24)
+        {
+           int Time;
+           Time = hours.getValue();
+           Time = Time%12;
+           hours.setValue(Time);
+            
+           return displayString = hours.getDisplayValue() + ":" + 
+                        minutes.getDisplayValue()+" P.M";
+            
+        }
+        if (hours.getValue()==0)
+        {
+        hours.setValue(12);
+        return displayString = hours.getDisplayValue() + ":" + 
+                        minutes.getDisplayValue()+" A.M";
+        }
+        else 
+        {
+        return displayString = hours.getDisplayValue() + ":" + 
+                        minutes.getDisplayValue()+" A.M";
+        }
+        
+        
+    }
+    
+    
     /**
      * This method should get called once every minute - it makes
      * the clock display go one minute forward.
